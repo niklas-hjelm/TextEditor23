@@ -6,20 +6,26 @@
         xmlns:local="clr-namespace:TextEditor23"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="BlanchedAlmond">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="10*"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Name="SaveFileBtn" Grid.Column="0" Grid.Row="1" Content="Spara" Click="SaveFileBtn_OnClick" />
-        <TextBox Name="MainTextBox" Grid.Column="1" Grid.Row="1"/>
-        <Button Name="OpenFileBtn" Grid.Column="2" Grid.Row="1" Content="Öppna" Click="OpenFileBtn_OnClick"></Button>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3">
+            <Separator Width="10"></Separator>
+            <Button Name="SaveFileBtn" Height="35" Content="Spara" Click="SaveFileBtn_OnClick" />
+            <Separator Width="10"></Separator>
+            <Button Name="OpenFileBtn" Content="Öppna" Click="OpenFileBtn_OnClick"></Button>
+            <Separator Width="10"></Separator>
+            <ToggleButton Content="B" Name="ToggleBoldBtn" Click="ToggleBoldBtn_OnClick"></ToggleButton>
+        </StackPanel>
+        <RichTextBox Name="MainTextBox" Grid.Column="1" Grid.Row="1" />
     </Grid>
 
 </Window>

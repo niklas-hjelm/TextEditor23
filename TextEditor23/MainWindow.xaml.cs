@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using Path = System.IO.Path;
 
 namespace TextEditor23
@@ -35,16 +36,37 @@ namespace TextEditor23
 
         private void SaveFileBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            var text = MainTextBox.Text;
-            using var sw = new StreamWriter(_filePath);
-            sw.Write(text);
+            SaveFileDialog saveFileDlg = new SaveFileDialog();
+            if (saveFileDlg.ShowDialog() == true)
+            {
+                using var stream = new FileStream(saveFileDlg.FileName, FileMode.Create);
+                var text = new TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd);
+                text.Save(stream, DataFormats.Text);
+            }
         }
 
         private void OpenFileBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            using var sr = new StreamReader(_filePath);
-            var text = sr.ReadToEnd();
-            MainTextBox.Text = text;
+            OpenFileDialog openFileDlg = new OpenFileDialog();
+            if (openFileDlg.ShowDialog() == true)
+            {
+                using var sr = new StreamReader(openFileDlg.FileName);
+                var text = sr.ReadToEnd();
+                //MainTextBox.Document = text;
+            }
+        }
+
+        private void ToggleBoldBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ToggleBoldBtn.IsChecked == true)
+            {
+                MainTextBox.FontWeight = FontWeights.ExtraBold;
+            }
+            else
+            {
+                MainTextBox.FontWeight = FontWeights.Normal;
+
+            }
         }
     }
 }
